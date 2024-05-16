@@ -109,6 +109,23 @@ function App() {
       rec.start();
     }
   }
+  const handleFromClick=(lang)=>{
+    if(lang !== to){
+      setFrom(lang);
+    }else{
+      setTo(from);
+      setFrom(lang);
+    }
+  }
+  const handleToClick=(lang)=>{
+    if(lang !== from){
+      setTo(lang);
+    }else{
+      setFrom(to);
+      setTo(lang);
+    }
+  }
+
   return (
     <div>
       <div className={styles.icono_conteiner}>
@@ -121,8 +138,8 @@ function App() {
         <div className={styles.from_conteiner}>
           <div>
             <button className={from === 'auto' && styles.fromSelected} onClick={() => detectIdioma()}>Auto</button>
-            <button className={from === 'es' && styles.fromSelected} onClick={() => to !== 'es' && setFrom('es')}>Español</button>
-            <button className={from === 'en' && styles.fromSelected} onClick={() => to !== 'en' && setFrom('en')}>Ingles</button>
+            <button className={from === 'es' && styles.fromSelected} onClick={() => handleFromClick('es')}>Español</button>
+            <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
             <button className={from === 'Voz' && styles.fromSelected} onClick={() => vozToTex()}>voz</button>
 
             {/* <select name="" id="" className={styles.select}>
@@ -145,8 +162,8 @@ function App() {
 
         <div className={styles.from_conteiner}>
           <div>
-            <button className={to === 'es' ? styles.fromSelected : null} onClick={() => from !== 'es' && setTo('es')}>Español</button>
-            <button className={to === 'en' ? styles.fromSelected : null} onClick={() => from !== 'en' && setTo('en')}>Ingles</button>
+            <button className={to === 'es' ? styles.fromSelected : null} onClick={() => handleToClick('es')}>Español</button>
+            <button className={to === 'en' ? styles.fromSelected : null} onClick={() => handleToClick('en')}>Ingles</button>
 
             <select name="to" id="to" className={to !== 'es' && to !== 'en' && to !== '' ? styles.selectSelected : styles.select} value={to} onChange={(e) => setTo(e.target.value)}>
               <option value="" disabled>Idiomas</option>

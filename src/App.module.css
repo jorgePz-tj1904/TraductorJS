@@ -75,13 +75,15 @@ textarea:focus {
   display: flex;
   justify-content: center;
 }
+
+
 .select{
   border: none;
   appearance: none;
-  padding: 0 30px 0 15px;
   color: white;
+  padding:8px 10px 8px 10px;
   font-size: 20px;
-  border-bottom: 2px solid white;
+  border-bottom: 1px solid white;
   background-color: transparent;
   transition: .1s;
   width: 150px;
@@ -94,6 +96,20 @@ textarea:focus {
 .select:focus{
   outline: none;
 }
+.selectSelected{
+  border: none;
+  appearance: none;
+  padding: 0 30px 0 15px;
+  color: white;
+  font-size: 20px;
+  padding:8px 15px 8px 15px;
+  border-bottom: solid 1px rgb(148,55,67);
+  background-color: transparent;
+  transition: .1s;
+  width: 150px;
+}
+
+
 .options{
   background-color: transparent;
   margin: 10px;
@@ -105,20 +121,11 @@ textarea:focus {
   color: rgb(153, 92, 100);
   cursor: pointer;
 }
+
 .fromSelected{
   background-color: white;
   color: rgb(148,55,67);
-}
-.selectSelected{
-  border: none;
-  appearance: none;
-  padding: 0 30px 0 15px;
-  color: white;
-  font-size: 20px;
-  border-bottom: solid 2px rgb(148,55,67);
-  background-color: transparent;
-  transition: .1s;
-  width: 150px;
+  border-radius: 10px;
 }
 .selectSelected:focus{
   outline: none;
@@ -131,11 +138,15 @@ textarea:focus {
   width: 30px;
   margin: 10px;
 }
+#traducirBtn{
+  margin-right: 30px;
+}
 #traducirBtn:hover{
   background-color: white;
   color: rgb(148,55,67);
+  border-radius: 10px;
 }
-@media (max-width: 750px) {
+@media (max-width: 890px) {
   .traductor_conteiner{
     display: flex;
     flex-direction: column;
