@@ -34,6 +34,17 @@ function App() {
     // console.log('se ejecuta');
   }, [frase]);
 
+
+  const copiarTxt = () => {
+    navigator.clipboard.writeText(result)
+      .then(() => {
+        alert('Se Copió correctamente');
+      })
+      .catch((err) => {
+        console.error('Error al copiar al portapapeles: ', err);
+      });
+  };
+
   const getTranslate = async () => {
     if (!from) {
       console.error('El idioma de origen no está definido');
@@ -146,8 +157,9 @@ function App() {
             </select>
           </div>
 
-          <textarea name="" id="" cols="30" rows="20" value={result}></textarea>
+          <textarea disabled name="" id="" cols="30" rows="20" value={result}></textarea>
           <img id={styles.altavoz} width={20} onClick={() => speakTo()} src="../public/altavoz.png" alt="" />
+          <img id={styles.copy} onClick={()=>copiarTxt()} width={20}  src="https://i.ibb.co/3hX2DRW/icons8-copy-48.png" alt="icons8-copy-48" border="0"/>
         </div>
 
       </div>

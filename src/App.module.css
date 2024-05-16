@@ -122,6 +122,14 @@ textarea:focus {
 .selectSelected:focus{
   outline: none;
 }
+#copy{
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 30px;
+  margin: 10px;
+}
 @media (max-width: 750px) {
   .traductor_conteiner{
     display: flex;
