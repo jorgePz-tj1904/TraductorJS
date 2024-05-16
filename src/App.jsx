@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Tesseract from 'tesseract.js';
 import styles from './App.module.css'
 import axios from 'axios'
 import { options, fnTranslate, autoDetected } from './api.js';
@@ -46,6 +47,7 @@ function App() {
   };
 
   const getTranslate = async () => {
+    console.log(to);
     if (frase === '') {
       alert('Ingresa el texto a traducir.');
       return;
@@ -126,6 +128,20 @@ function App() {
     }
   }
 
+  const handleImgUpload= async(e)=>{
+    const file = e.target.files[0];
+    if(file){
+      try {
+        const { data: { text } } = await Tesseract.recognize(file, 'spa');
+        if (text) {
+          setFrase(text);
+        }
+      } catch (error) {
+        
+      }
+    }
+  }
+
   return (
     <div>
       <div className={styles.icono_conteiner}>
@@ -140,19 +156,16 @@ function App() {
             <button className={from === 'auto' && styles.fromSelected} onClick={() => detectIdioma()}>Auto</button>
             <button className={from === 'es' && styles.fromSelected} onClick={() => handleFromClick('es')}>Español</button>
             <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
-            <button className={from === 'Voz' && styles.fromSelected} onClick={() => vozToTex()}>voz</button>
-
-            {/* <select name="" id="" className={styles.select}>
-              {
-                idiomas.map((e) => (
-                  <option className={styles.options} value={e.code}>{e.name}</option>
-                ))
-              }
-            </select> */}
-
-
+            
+            <img width={35} style={{cursor:'pointer', margin:10}} className={from === 'Voz' && styles.fromSelected} onClick={() => vozToTex()} src="https://i.ibb.co/Kryq4K3/icons8-mic-48.png" alt="icons8-mic-48" border="0"></img>
           </div>
+
+
           <textarea type="text" value={frase} onChange={(e) => setFrase(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
+
+          <img id={styles.addImg} width={40} src="https://i.ibb.co/jwMgGLn/icons8-add-image-48.png" alt="icons8-add-image-48" border="0"/>
+
+
           <button id={styles.traducirBtn} className={styles.translateBtn} onClick={() => getTranslate()}>Traducir</button>
 
           <img id={styles.altavoz} width={20} onClick={() => speak(frase, from)} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0" />
@@ -166,13 +179,13 @@ function App() {
             <button className={to === 'en' ? styles.fromSelected : null} onClick={() => handleToClick('en')}>Ingles</button>
 
             <select name="to" id="to" className={to !== 'es' && to !== 'en' && to !== '' ? styles.selectSelected : styles.select} value={to} onChange={(e) => setTo(e.target.value)}>
-              <option value="" disabled>Idiomas</option>
+              <option value="" disabled>Idiomas ▼</option>
               {
                 idiomas.map((e) => (
                   <option className={styles.options} key={e.code} value={e.code} disabled={from === e.code}>{e.name}</option>
                 ))
               }
-              <img id={styles.altavoz} width={20} src="../public/triangulo.png" alt="" />
+              <img id={styles.altavoz} width={20} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="" />
             </select>
           </div>
 
