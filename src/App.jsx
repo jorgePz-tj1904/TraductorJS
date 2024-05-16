@@ -20,7 +20,7 @@ function App() {
   const getIdiomas = async () => {
     try {
       const response = await axios.request(options);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setIdiomas(response.data.data.languages);
     } catch (error) {
       console.error(error);
@@ -30,10 +30,9 @@ function App() {
   useEffect(() => {
     getIdiomas();
     detectIdioma();
-    console.log(frase);
-    console.log('se ejecuta');
+    // console.log(frase);
+    // console.log('se ejecuta');
   }, [frase]);
-
 
   const getTranslate = async () => {
     if (!from) {
@@ -42,7 +41,7 @@ function App() {
     }
     try {
       const response = await axios(fnTranslate(encodedParams));
-      console.log(response.data.data.translatedText);
+      // console.log(response.data.data.translatedText);
       setResult(response.data.data.translatedText);
     } catch (error) {
       console.error('Error en la solicitud de traducción:', error);
@@ -66,7 +65,7 @@ function App() {
     try {
       const response = await axios.request(autoDetected(encodedParams));
 
-      console.log(response.data.source_lang_code);
+      // console.log(response.data.source_lang_code);
 
       setFrom(response.data.source_lang_code);
     } catch (error) {
@@ -101,7 +100,7 @@ function App() {
     <div>
       <div className={styles.icono_conteiner}>
 
-        <img id='icono' src="../public/icono.png" alt="" />
+      <img src="https://i.ibb.co/3yD0WnB/icono.png" alt="icono" border="0"/>
       </div>
 
       <div className={styles.traductor_conteiner}>
@@ -125,7 +124,8 @@ function App() {
           </div>
           <textarea type="text" value={frase} onChange={(e) => setFrase(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
           <button className={styles.translateBtn} onClick={() => getTranslate()}>Traducir</button>
-          <img id={styles.altavoz} width={20} onClick={() => speakFrom()} src="../public/altavoz.png" alt="" />
+          
+          <img id={styles.altavoz} width={20} onClick={() => speakFrom()} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0"/>
 
 
         </div>
