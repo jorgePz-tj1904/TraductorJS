@@ -158,7 +158,7 @@ function App() {
           </div>
 
           <textarea disabled name="" id="" cols="30" rows="20" value={result}></textarea>
-          <img id={styles.altavoz} width={20} onClick={() => speakTo()} src="../public/altavoz.png" alt="" />
+          <img id={styles.altavoz} width={20} onClick={() => speakTo()} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0"/>
           <img id={styles.copy} onClick={()=>copiarTxt()} width={20}  src="https://i.ibb.co/3hX2DRW/icons8-copy-48.png" alt="icons8-copy-48" border="0"/>
         </div>
 
