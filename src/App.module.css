@@ -106,7 +106,8 @@ textarea:focus {
   cursor: pointer;
 }
 .fromSelected{
-  border-bottom: solid 2px rgb(148,55,67);
+  background-color: white;
+  color: rgb(148,55,67);
 }
 .selectSelected{
   border: none;
@@ -129,6 +130,10 @@ textarea:focus {
   left: 10px;
   width: 30px;
   margin: 10px;
+}
+#traducirBtn:hover{
+  background-color: white;
+  color: rgb(148,55,67);
 }
 @media (max-width: 750px) {
   .traductor_conteiner{

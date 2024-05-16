@@ -39,14 +39,17 @@ h1 {
 
 button {
   all: unset;
-  border-bottom: solid 2px rgb(255, 255, 255);
+  border: solid 1px rgb(255, 255, 255);
+  border-radius: 10px;
+  padding:5px 15px 5px 15px;
   background: none;
   outline: none;
   margin: 10px;
   cursor: pointer;
+  transition: .2s;
 }
 button:hover {
-  border-bottom: solid 2px rgb(148,55,67);
+  opacity: 60%;
 }
 button:focus,
 button:focus-visible {
