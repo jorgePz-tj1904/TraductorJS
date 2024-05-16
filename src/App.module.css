@@ -146,6 +146,7 @@ textarea:focus {
   color: rgb(148,55,67);
   border-radius: 10px;
 }
+
 @media (max-width: 890px) {
   .traductor_conteiner{
     display: flex;
@@ -159,6 +160,15 @@ textarea:focus {
   }
   textarea{
     height: 250px;
+  }
+}
+@media (max-width: 475px) {
+  .select{
+    width: 100px;
+    font-size: 17px;
+  }
+  .from_conteiner{
+    margin: 2px;
   }
 }
 
