@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Tesseract from 'tesseract.js';
 import styles from './App.module.css'
 import axios from 'axios'
@@ -7,10 +7,12 @@ import { options, fnTranslate, autoDetected } from './api.js';
 function App() {
 
   const [frase, setFrase] = useState('');
-  const [idiomas, setIdiomas] = useState([]);
-  const [from, setFrom] = useState('auto');
   const [to, setTo] = useState('');
   const [result, setResult] = useState('');
+  const [idiomas, setIdiomas] = useState([]);
+  const [from, setFrom] = useState('auto');
+  const [grabando, setGrabando] = useState(false);
+  const recRef = useRef(null);
 
 
   const encodedParams = new URLSearchParams();
@@ -88,8 +90,18 @@ function App() {
     }
   }
 
-  const vozToTex = () => {
+  const vozToTex = (stop) => {
+    if (stop) {
+      if(recRef.current){
+        recRef.current.stop();
+        setGrabando(false);
+        console.log('entra aca, un saludo a la maquina');
+      }
+      return;
+    }
+    setGrabando(true);
     const rec = new webkitSpeechRecognition();
+    recRef.current = rec;
     setFrom('Voz');
 
     rec.lang = "es"; // Establecer el idioma del reconocimiento de voz
@@ -101,6 +113,7 @@ function App() {
       }
       setFrase(transcript.trim());
       rec.stop();
+      setGrabando(false);
     };
 
     if (!("webkitSpeechRecognition" in window)) {
@@ -111,6 +124,8 @@ function App() {
       rec.start();
     }
   }
+
+  
   const handleFromClick=(lang)=>{
     if(lang !== to){
       setFrom(lang);
@@ -151,14 +166,19 @@ function App() {
 
       <div className={styles.traductor_conteiner}>
 
-        <div className={styles.from_conteiner}>
-          <div>
+        <div className={styles.cards_conteiner}>
+          <div className={styles.idiomas_conteiner}>
             <button className={from === 'auto' && styles.fromSelected} onClick={() => detectIdioma()}>Auto</button>
             <button className={from === 'es' && styles.fromSelected} onClick={() => handleFromClick('es')}>Español</button>
             <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
             
-            <img width={35} style={{cursor:'pointer', margin:10}} className={from === 'Voz' && styles.fromSelected} onClick={() => vozToTex()} src="https://i.ibb.co/Kryq4K3/icons8-mic-48.png" alt="icons8-mic-48" border="0"></img>
           </div>
+          {
+            !grabando? 
+            <img  width={35} id={styles.mic} onClick={() => vozToTex()} src="https://i.ibb.co/Kryq4K3/icons8-mic-48.png" alt="icons8-mic-48" border="0"/>
+            :
+            <img id={styles.mic} width={35} onClick={() => vozToTex(true)} src="https://i.ibb.co/wJ40G0N/icons8-rounded-square-50.png" alt="icons8-rounded-square-50"  border="0"/>
+          }
 
 
           <textarea type="text" value={frase} onChange={(e) => setFrase(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
@@ -166,14 +186,14 @@ function App() {
           <img id={styles.addImg} width={40} src="https://i.ibb.co/jwMgGLn/icons8-add-image-48.png" alt="icons8-add-image-48" border="0"/>
 
 
-          <button id={styles.traducirBtn} className={styles.translateBtn} onClick={() => getTranslate()}>Traducir</button>
 
           <img id={styles.altavoz} width={20} onClick={() => speak(frase, from)} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0" />
-
-
+          <button id={styles.traducirBtn} className={styles.translateBtn} onClick={() => getTranslate()}>Traducir</button>
         </div>
 
-        <div className={styles.from_conteiner}>
+       
+
+        <div className={styles.cards_conteiner}>
           <div>
             <button className={to === 'es' ? styles.fromSelected : null} onClick={() => handleToClick('es')}>Español</button>
             <button className={to === 'en' ? styles.fromSelected : null} onClick={() => handleToClick('en')}>Ingles</button>

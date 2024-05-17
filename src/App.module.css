@@ -5,7 +5,7 @@
   text-align: center;
 }
 
-.from_conteiner {
+.cards_conteiner {
   background-color: rgba(188, 188, 188, 0.23);
   /* Color blanco con opacidad del 50% */
   backdrop-filter: blur(10px);
@@ -21,12 +21,20 @@
 }
 
 textarea {
+  height: 100%;
   resize: none;
   background: none;
   border: none;
   color: white;
   font-size: 17px;
+  margin-bottom: 12px;
 }
+textarea:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
 #altavoz{
   cursor: pointer;
   position: absolute;
@@ -34,14 +42,12 @@ textarea {
   right: 0;
   width: 30px;
   margin: 10px;
+  transition: .2s;
+}
+#altavoz:hover{
+  transform: scale(1.1);
 }
 
-textarea:focus {
-  border: none;
-  /* Cambia el color del borde al enfocar */
-  box-shadow: none;
-  outline: none;
-}
 .translateBtn{
   position: absolute;
   bottom: 0;
@@ -59,34 +65,36 @@ textarea:focus {
   appearance: none;
   color: white;
   padding:8px 10px 8px 10px;
-  font-size: 20px;
-  border: 1px solid white;
   border-radius: 10px;
   background-color: transparent;
   transition: .2s;
   width: 150px;
+  font-size: 20px;
 }
 .select:hover{
   outline: none;
   cursor: pointer;
-  border: 2px solid rgb(25, 19, 84);
+  opacity: 60%;
 }
 .select:focus{
   outline: none;
 }
 .selectSelected{
   border: none;
+  background-color: white;
+  color: rgb(25, 19, 84);
+  text-align: center;
   appearance: none;
   padding: 0 30px 0 15px;
-  color: white;
-  font-size: 20px;
+  font-size: 16px;
   padding:8px 15px 8px 15px;
-  border: solid 1px rgb(25, 19, 84);
   border-radius: 10px;
-  background-color: transparent;
   transition: .1s;
   width: 150px;
   cursor: pointer;
+}
+.selectSelected:focus{
+  outline: none;
 }
 
 
@@ -107,9 +115,6 @@ textarea:focus {
   color: rgb(25, 19, 84);
   border-radius: 10px;
 }
-.selectSelected:focus{
-  outline: none;
-}
 #copy{
   cursor: pointer;
   position: absolute;
@@ -118,9 +123,24 @@ textarea:focus {
   width: 30px;
   margin: 10px;
 }
-#traducirBtn{
-  margin-right: 30px;
+#copy:hover{
+  transform: scale(1.1);
 }
+
+#traducirBtn {
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; /* Posiciona absolutamente dentro del contenedor */
+  bottom: 5px; /* Baja el botón para alinearlo con los iconos */
+  left: 50%; /* Centra horizontalmente */
+  transform: translateX(-50%); /* Ajusta la posición para centrar correctamente */
+  margin: 0; /* Elimina cualquier margen que pueda estar afectando la posición */
+}
+
+
 #traducirBtn:hover{
   background-color: white;
   color: rgb(25, 19, 84);
@@ -134,7 +154,29 @@ textarea:focus {
   left: 0;
   width: 35px;
   margin: 10px;
+  transition: .2s;
 }
+#addImg:hover{
+  transform: scale(1.1);
+}
+
+#mic{
+  cursor: pointer;
+  position: absolute;
+  top:25px;
+  right: 20px;
+  width: 30px;
+  margin: 10px;
+  transition: .2s;
+}
+
+#mic:hover {
+  transform: scale(1.1);
+}
+.idiomas_conteiner{
+  margin-right: 40px;
+}
+
 
 @media (max-width: 890px) {
   .traductor_conteiner{
@@ -156,7 +198,7 @@ textarea:focus {
     width: 100px;
     font-size: 17px;
   }
-  .from_conteiner{
+  .cards_conteiner{
     margin: 2px;
   }
 }
