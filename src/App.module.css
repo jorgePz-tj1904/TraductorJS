@@ -14,6 +14,7 @@
   border: solid 2px rgb(3, 0, 40);
   margin: 10px;
   font-size: 20px;
+  min-width: 350px;
 }
 .traductor_conteiner{
   display: flex;
@@ -163,18 +164,41 @@ textarea:focus {
 #mic{
   cursor: pointer;
   position: absolute;
-  top:25px;
-  right: 20px;
+  top:35px;
+  right: 30px;
   width: 30px;
-  margin: 10px;
   transition: .2s;
 }
 
 #mic:hover {
   transform: scale(1.1);
 }
-.idiomas_conteiner{
-  margin-right: 40px;
+
+.upload_Conteiner{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.uploadImg{
+  display: none;
+}
+#estiloUpload{
+  display: flex;
+  width: 200px;
+  height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.542);
+  border-radius: 10px;
+  transition: .1s;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#estiloUpload:hover{
+  border: 1px solid rgba(25, 19, 84, 0.482);
+  cursor: pointer;
 }
 
 
@@ -192,6 +216,14 @@ textarea:focus {
   textarea{
     height: 250px;
   }
+  .upload_Conteiner{
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+  #estiloUpload{
+    width: 200px;
+    height: 100px;
+  }
 }
 @media (max-width: 475px) {
   .select{
@@ -200,6 +232,7 @@ textarea:focus {
   }
   .cards_conteiner{
     margin: 2px;
+    min-width: auto;
   }
 }
 
