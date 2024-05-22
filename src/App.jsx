@@ -35,7 +35,7 @@ function App() {
   }
 
   useEffect(() => {
-    // getIdiomas();
+    getIdiomas();
     // detectIdioma();
     // console.log(frase);
     // console.log('se ejecuta');
