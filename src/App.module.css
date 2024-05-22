@@ -15,6 +15,7 @@
   margin: 10px;
   font-size: 20px;
   min-width: 350px;
+  min-height: 500px;
 }
 .traductor_conteiner{
   display: flex;
@@ -200,7 +201,29 @@ textarea:focus {
   border: 1px solid rgba(25, 19, 84, 0.482);
   cursor: pointer;
 }
-
+@keyframes cargando{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+.conteiner_iconoCargando{
+  width: 100%;
+  display: flex;
+  margin-top: 100px;
+  justify-content: center;
+}
+#iconoCargando{
+  border: 6px solid transparent;
+  border-top-color: white;
+  border-bottom-color: white;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  animation: cargando 1.3s infinite linear;
+}
 
 @media (max-width: 890px) {
   .traductor_conteiner{
@@ -223,6 +246,9 @@ textarea:focus {
   #estiloUpload{
     width: 200px;
     height: 100px;
+  }
+  .cards_conteiner{
+    min-height: 300px;
   }
 }
 @media (max-width: 475px) {

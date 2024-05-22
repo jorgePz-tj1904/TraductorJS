@@ -9,10 +9,13 @@ function App() {
   const [frase, setFrase] = useState('');
   const [to, setTo] = useState('auto');
   const [result, setResult] = useState('');
+
   const [uploadImg, setUploadImg] = useState(false);
+  const [grabando, setGrabando] = useState(false);
+  const [cargando, setCargando] = useState(false); 
+
   const [idiomas, setIdiomas] = useState([]);
   const [from, setFrom] = useState('auto');
-  const [grabando, setGrabando] = useState(false);
   const recRef = useRef(null);
 
 
@@ -50,13 +53,17 @@ function App() {
   };
 
   const getTranslate = async () => {
-    console.log(to);
+    // console.log(to);
+    setResult('');
+    setCargando(true);
     if (frase === '') {
       alert('Ingresa el texto a traducir.');
+      setCargando(false);
       return;
     }
     if (to === '') {
       alert('Selecciona el idioma a traducir.');
+      setCargando(false);
       return;
     }
     try {
@@ -66,6 +73,7 @@ function App() {
     } catch (error) {
       console.error('Error en la solicitud de traducción:', error);
       console.error('Detalles del error:', error.response.data);
+      setCargando(false);
     }
   };
 
@@ -146,7 +154,7 @@ function App() {
 
   const handleImgUpload = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
+
     if (file) {
       try {
         const { data: { text } } = await Tesseract.recognize(file, 'spa');
@@ -219,7 +227,7 @@ function App() {
             uploadImg ?
               <img onClick={() => setUploadImg(false)} id={styles.addImg} width={35} src="https://i.ibb.co/jr88G8t/icons8-cancel-64.png" alt="icons8-cancel-64" border="0" />
               :
-              <img onClick={() => setUploadImg(true)} id={styles.addImg} width={40} src="https://i.ibb.co/jwMgGLn/icons8-add-image-48.png" alt="icons8-add-image-48" border="0" />
+              <img onClick={() => {setUploadImg(true); setFrase('')}} id={styles.addImg} width={40} src="https://i.ibb.co/jwMgGLn/icons8-add-image-48.png" alt="icons8-add-image-48" border="0" />
           }
 
           <img id={styles.altavoz} width={20} onClick={() => speak(frase, from)} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0" />
@@ -244,7 +252,12 @@ function App() {
             <img id={styles.altavoz} width={20} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="" />
           </div>
 
-          <textarea disabled name="" id="" cols="30" rows="20" value={result}></textarea>
+          {
+            cargando && result === '' ? <div className={styles.conteiner_iconoCargando}><div id={styles.iconoCargando}></div></div>:<textarea disabled name="" id="" cols="30" rows="20" value={result}></textarea>
+          }
+
+          
+
           <img id={styles.altavoz} width={20} onClick={() => speak(result, to)} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0" />
           <img id={styles.copy} onClick={() => copiarTxt()} width={20} src="https://i.ibb.co/3hX2DRW/icons8-copy-48.png" alt="icons8-copy-48" border="0" />
         </div>
