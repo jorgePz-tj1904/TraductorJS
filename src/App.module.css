@@ -14,7 +14,7 @@
   border: solid 2px rgb(3, 0, 40);
   margin: 10px;
   font-size: 20px;
-  min-width: 350px;
+  min-width: 370px;
   min-height: 500px;
 }
 .traductor_conteiner{
@@ -248,7 +248,7 @@ textarea:focus {
     height: 100px;
   }
   .cards_conteiner{
-    min-height: 300px;
+    min-height: 350px;
   }
 }
 @media (max-width: 475px) {

@@ -27,7 +27,7 @@ function App() {
   const getIdiomas = async () => {
     try {
       const response = await axios.request(options);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setIdiomas(response.data.data.languages);
     } catch (error) {
       console.error(error);
@@ -35,7 +35,7 @@ function App() {
   }
 
   useEffect(() => {
-    getIdiomas();
+    // getIdiomas();
     // detectIdioma();
     // console.log(frase);
     // console.log('se ejecuta');
@@ -203,6 +203,7 @@ function App() {
                   <img id={styles.mic} width={35} onClick={() => vozToTex(true)} src="https://i.ibb.co/wJ40G0N/icons8-rounded-square-50.png" alt="icons8-rounded-square-50" border="0" />
               }
 
+              
 
               <textarea type="text" value={frase} onChange={(e) => setFrase(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
 
@@ -235,9 +236,9 @@ function App() {
 
           {
             uploadImg ?
-              <img onClick={() => setUploadImg(false)} id={styles.addImg} width={35} src="https://i.ibb.co/jr88G8t/icons8-cancel-64.png" alt="icons8-cancel-64" border="0" />
+              <img onClick={() => setUploadImg(false)} id={styles.addImg} src="src/iconos/equis.png" alt="icons8-cancel-64" border="0" />
               :
-              <img onClick={() => {setUploadImg(true); setFrase('')}} id={styles.addImg} width={40} src="https://i.ibb.co/jwMgGLn/icons8-add-image-48.png" alt="icons8-add-image-48" border="0" />
+              <img onClick={() => {setUploadImg(true); setFrase('')}} id={styles.addImg} width={40} src="src/iconos/addImg.png" alt="icons8-add-image-48" border="0" />
           }
 
           <img id={styles.altavoz} width={20} onClick={() => speak(frase, from)} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0" />
