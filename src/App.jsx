@@ -140,7 +140,8 @@ function App() {
             <button className={from === 'auto' && styles.fromSelected} onClick={() => detectIdioma()}>Auto</button>
             <button className={from === 'es' && styles.fromSelected} onClick={() => handleFromClick('es')}>Español</button>
             <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
-            <button className={from === 'Voz' && styles.fromSelected} onClick={() => vozToTex()}>voz</button>
+            
+            <img width={30} className={from === 'Voz' && styles.fromSelected} onClick={() => vozToTex()} src="https://i.ibb.co/Kryq4K3/icons8-mic-48.png" alt="icons8-mic-48" border="0"></img>
 
             {/* <select name="" id="" className={styles.select}>
               {
