@@ -178,22 +178,14 @@ function App() {
 
       <div className={styles.traductor_conteiner}>
 
-<<<<<<< HEAD
-        <div className={styles.from_conteiner}>
-          <div>
-            <button className={from === 'auto' && styles.fromSelected} onClick={() => detectIdioma()}>Auto</button>
-            <button className={from === 'es' && styles.fromSelected} onClick={() => handleFromClick('es')}>Español</button>
-            <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
-            
-            <img width={30} className={from === 'Voz' && styles.fromSelected} onClick={() => vozToTex()} src="https://i.ibb.co/Kryq4K3/icons8-mic-48.png" alt="icons8-mic-48" border="0"></img>
-=======
+
         <div className={styles.cards_conteiner}>
           {
             !uploadImg ? <div><div className={styles.idiomas_conteiner}>
               <button className={from === 'auto' && styles.fromSelected} onClick={() => detectIdioma()}>Auto</button>
               <button className={from === 'es' && styles.fromSelected} onClick={() => handleFromClick('es')}>Español</button>
               <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
->>>>>>> e1680cd4ea9d24c5f532440a80a60245db60de91
+
 
             </div>
               {
