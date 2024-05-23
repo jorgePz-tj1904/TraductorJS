@@ -5,38 +5,17 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.from_conteiner {
+.cards_conteiner {
   background-color: rgba(188, 188, 188, 0.23);
   /* Color blanco con opacidad del 50% */
   backdrop-filter: blur(10px);
   padding: 20px;
   border-radius: 20px;
-  border: solid 2px rgb(153, 92, 100);
+  border: solid 2px rgb(3, 0, 40);
   margin: 10px;
   font-size: 20px;
+  min-width: 350px;
+  min-height: 500px;
 }
 .traductor_conteiner{
   display: flex;
@@ -44,12 +23,20 @@
 }
 
 textarea {
+  height: 400px;
   resize: none;
   background: none;
   border: none;
   color: white;
   font-size: 17px;
+  margin-bottom: 12px;
 }
+textarea:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
 #altavoz{
   cursor: pointer;
   position: absolute;
@@ -57,14 +44,12 @@ textarea {
   right: 0;
   width: 30px;
   margin: 10px;
+  transition: .2s;
+}
+#altavoz:hover{
+  transform: scale(1.1);
 }
 
-textarea:focus {
-  border: none;
-  /* Cambia el color del borde al enfocar */
-  box-shadow: none;
-  outline: none;
-}
 .translateBtn{
   position: absolute;
   bottom: 0;
@@ -82,31 +67,36 @@ textarea:focus {
   appearance: none;
   color: white;
   padding:8px 10px 8px 10px;
-  font-size: 20px;
-  border-bottom: 1px solid white;
+  border-radius: 10px;
   background-color: transparent;
-  transition: .1s;
+  transition: .2s;
   width: 150px;
+  font-size: 20px;
 }
 .select:hover{
   outline: none;
   cursor: pointer;
-  border-bottom: 2px solid rgb(148,55,67);
+  opacity: 60%;
 }
 .select:focus{
   outline: none;
 }
 .selectSelected{
   border: none;
+  background-color: white;
+  color: rgb(25, 19, 84);
+  text-align: center;
   appearance: none;
   padding: 0 30px 0 15px;
-  color: white;
-  font-size: 20px;
+  font-size: 16px;
   padding:8px 15px 8px 15px;
-  border-bottom: solid 1px rgb(148,55,67);
-  background-color: transparent;
+  border-radius: 10px;
   transition: .1s;
   width: 150px;
+  cursor: pointer;
+}
+.selectSelected:focus{
+  outline: none;
 }
 
 
@@ -118,17 +108,14 @@ textarea:focus {
 }
 .options:hover{
   background-color: white;
-  color: rgb(153, 92, 100);
+  color: rgb(25, 19, 84);
   cursor: pointer;
 }
 
 .fromSelected{
   background-color: white;
-  color: rgb(148,55,67);
+  color: rgb(25, 19, 84);
   border-radius: 10px;
-}
-.selectSelected:focus{
-  outline: none;
 }
 #copy{
   cursor: pointer;
@@ -138,13 +125,104 @@ textarea:focus {
   width: 30px;
   margin: 10px;
 }
-#traducirBtn{
-  margin-right: 30px;
+#copy:hover{
+  transform: scale(1.1);
 }
+
+#traducirBtn {
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; /* Posiciona absolutamente dentro del contenedor */
+  bottom: 5px; /* Baja el botón para alinearlo con los iconos */
+  left: 50%; /* Centra horizontalmente */
+  transform: translateX(-50%); /* Ajusta la posición para centrar correctamente */
+  margin: 0; /* Elimina cualquier margen que pueda estar afectando la posición */
+}
+
+
 #traducirBtn:hover{
   background-color: white;
-  color: rgb(148,55,67);
+  color: rgb(25, 19, 84);
   border-radius: 10px;
+}
+
+#addImg{
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 35px;
+  margin: 10px;
+  transition: .2s;
+}
+#addImg:hover{
+  transform: scale(1.1);
+}
+
+#mic{
+  cursor: pointer;
+  position: absolute;
+  top:35px;
+  right: 30px;
+  width: 30px;
+  transition: .2s;
+}
+
+#mic:hover {
+  transform: scale(1.1);
+}
+
+.upload_Conteiner{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.uploadImg{
+  display: none;
+}
+#estiloUpload{
+  display: flex;
+  width: 200px;
+  height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.542);
+  border-radius: 10px;
+  transition: .1s;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#estiloUpload:hover{
+  border: 1px solid rgba(25, 19, 84, 0.482);
+  cursor: pointer;
+}
+@keyframes cargando{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+.conteiner_iconoCargando{
+  width: 100%;
+  display: flex;
+  margin-top: 100px;
+  justify-content: center;
+}
+#iconoCargando{
+  border: 6px solid transparent;
+  border-top-color: white;
+  border-bottom-color: white;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  animation: cargando 1.3s infinite linear;
 }
 
 @media (max-width: 890px) {
@@ -161,14 +239,26 @@ textarea:focus {
   textarea{
     height: 250px;
   }
+  .upload_Conteiner{
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+  #estiloUpload{
+    width: 200px;
+    height: 100px;
+  }
+  .cards_conteiner{
+    min-height: 300px;
+  }
 }
 @media (max-width: 475px) {
   .select{
     width: 100px;
     font-size: 17px;
   }
-  .from_conteiner{
+  .cards_conteiner{
     margin: 2px;
+    min-width: auto;
   }
 }
 

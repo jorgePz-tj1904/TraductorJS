@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import Tesseract from 'tesseract.js';
 import styles from './App.module.css'
 import axios from 'axios'
 import { options, fnTranslate, autoDetected } from './api.js';
@@ -6,10 +7,16 @@ import { options, fnTranslate, autoDetected } from './api.js';
 function App() {
 
   const [frase, setFrase] = useState('');
+  const [to, setTo] = useState('auto');
+  const [result, setResult] = useState('');
+
+  const [uploadImg, setUploadImg] = useState(false);
+  const [grabando, setGrabando] = useState(false);
+  const [cargando, setCargando] = useState(false); 
+
   const [idiomas, setIdiomas] = useState([]);
   const [from, setFrom] = useState('auto');
-  const [to, setTo] = useState('');
-  const [result, setResult] = useState('');
+  const recRef = useRef(null);
 
 
   const encodedParams = new URLSearchParams();
@@ -20,7 +27,7 @@ function App() {
   const getIdiomas = async () => {
     try {
       const response = await axios.request(options);
-      // console.log(response.data.data);
+      console.log(response.data.data);
       setIdiomas(response.data.data.languages);
     } catch (error) {
       console.error(error);
@@ -29,7 +36,7 @@ function App() {
 
   useEffect(() => {
     getIdiomas();
-    detectIdioma();
+    // detectIdioma();
     // console.log(frase);
     // console.log('se ejecuta');
   }, []);
@@ -46,12 +53,17 @@ function App() {
   };
 
   const getTranslate = async () => {
+    // console.log(to);
+    setResult('');
+    setCargando(true);
     if (frase === '') {
       alert('Ingresa el texto a traducir.');
+      setCargando(false);
       return;
     }
     if (to === '') {
       alert('Selecciona el idioma a traducir.');
+      setCargando(false);
       return;
     }
     try {
@@ -61,6 +73,7 @@ function App() {
     } catch (error) {
       console.error('Error en la solicitud de traducción:', error);
       console.error('Detalles del error:', error.response.data);
+      setCargando(false);
     }
   };
 
@@ -86,8 +99,18 @@ function App() {
     }
   }
 
-  const vozToTex = () => {
+  const vozToTex = (stop) => {
+    if (stop) {
+      if (recRef.current) {
+        recRef.current.stop();
+        setGrabando(false);
+        console.log('entra aca, un saludo a la maquina');
+      }
+      return;
+    }
+    setGrabando(true);
     const rec = new webkitSpeechRecognition();
+    recRef.current = rec;
     setFrom('Voz');
 
     rec.lang = "es"; // Establecer el idioma del reconocimiento de voz
@@ -99,6 +122,7 @@ function App() {
       }
       setFrase(transcript.trim());
       rec.stop();
+      setGrabando(false);
     };
 
     if (!("webkitSpeechRecognition" in window)) {
@@ -109,20 +133,39 @@ function App() {
       rec.start();
     }
   }
-  const handleFromClick=(lang)=>{
-    if(lang !== to){
+
+
+  const handleFromClick = (lang) => {
+    if (lang !== to) {
       setFrom(lang);
-    }else{
+    } else {
       setTo(from);
       setFrom(lang);
     }
   }
-  const handleToClick=(lang)=>{
-    if(lang !== from){
+  const handleToClick = (lang) => {
+    if (lang !== from) {
       setTo(lang);
-    }else{
+    } else {
       setFrom(to);
       setTo(lang);
+    }
+  }
+
+  const handleImgUpload = async (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      try {
+        const { data: { text } } = await Tesseract.recognize(file, 'spa');
+        if (text) {
+          console.log('hay frase');
+          console.log(text);
+          setFrase(text);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
@@ -135,6 +178,7 @@ function App() {
 
       <div className={styles.traductor_conteiner}>
 
+<<<<<<< HEAD
         <div className={styles.from_conteiner}>
           <div>
             <button className={from === 'auto' && styles.fromSelected} onClick={() => detectIdioma()}>Auto</button>
@@ -142,42 +186,88 @@ function App() {
             <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
             
             <img width={30} className={from === 'Voz' && styles.fromSelected} onClick={() => vozToTex()} src="https://i.ibb.co/Kryq4K3/icons8-mic-48.png" alt="icons8-mic-48" border="0"></img>
+=======
+        <div className={styles.cards_conteiner}>
+          {
+            !uploadImg ? <div><div className={styles.idiomas_conteiner}>
+              <button className={from === 'auto' && styles.fromSelected} onClick={() => detectIdioma()}>Auto</button>
+              <button className={from === 'es' && styles.fromSelected} onClick={() => handleFromClick('es')}>Español</button>
+              <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
+>>>>>>> e1680cd4ea9d24c5f532440a80a60245db60de91
 
-            {/* <select name="" id="" className={styles.select}>
+            </div>
               {
-                idiomas.map((e) => (
-                  <option className={styles.options} value={e.code}>{e.name}</option>
-                ))
+                !grabando ?
+                  <img width={35} id={styles.mic} onClick={() => vozToTex()} src="https://i.ibb.co/Kryq4K3/icons8-mic-48.png" alt="icons8-mic-48" border="0" />
+                  :
+                  <img id={styles.mic} width={35} onClick={() => vozToTex(true)} src="https://i.ibb.co/wJ40G0N/icons8-rounded-square-50.png" alt="icons8-rounded-square-50" border="0" />
               }
-            </select> */}
 
 
-          </div>
-          <textarea type="text" value={frase} onChange={(e) => setFrase(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
-          <button id={styles.traducirBtn} className={styles.translateBtn} onClick={() => getTranslate()}>Traducir</button>
+              <textarea type="text" value={frase} onChange={(e) => setFrase(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
+
+            </div> : <div>
+              <div className={styles.idiomas_conteiner}>
+                <button className={from === 'es' && styles.fromSelected} onClick={() => handleFromClick('es')}>Español</button>
+                <button className={from === 'en' && styles.fromSelected} onClick={() => handleFromClick('en')}>Ingles</button>
+                <select name="to" id="to" className={to !== 'es' && to !== 'en' && to !== '' ? styles.selectSelected : styles.select} value={to} onChange={(e) => setTo(e.target.value)}>
+                  <option value="" disabled>Idiomas ▼</option>
+                  {
+                    idiomas.map((e) => (
+                      <option className={styles.options} key={e.code} value={e.code} disabled={from === e.code}>{e.name}</option>
+                    ))
+                  }
+                </select>
+              </div>
+
+
+              {
+                frase === '' ? <div className={styles.upload_Conteiner}>
+
+                  <input className={styles.uploadImg} id='img' type="file" onChange={handleImgUpload} />
+                  <label id={styles.estiloUpload} for="img" ><img width={70} src="https://i.ibb.co/R2Xx6h0/icons8-upload-96.png" alt="icons8-upload-96" border="0"></img></label>
+    
+                </div> : <textarea type="text" value={frase} onChange={(e) => setFrase(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
+              }
+
+            </div>
+          }
+
+          {
+            uploadImg ?
+              <img onClick={() => setUploadImg(false)} id={styles.addImg} width={35} src="https://i.ibb.co/jr88G8t/icons8-cancel-64.png" alt="icons8-cancel-64" border="0" />
+              :
+              <img onClick={() => {setUploadImg(true); setFrase('')}} id={styles.addImg} width={40} src="https://i.ibb.co/jwMgGLn/icons8-add-image-48.png" alt="icons8-add-image-48" border="0" />
+          }
 
           <img id={styles.altavoz} width={20} onClick={() => speak(frase, from)} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0" />
-
-
+          <button id={styles.traducirBtn} className={styles.translateBtn} onClick={() => getTranslate()}>Traducir</button>
         </div>
 
-        <div className={styles.from_conteiner}>
+
+
+        <div className={styles.cards_conteiner}>
           <div>
             <button className={to === 'es' ? styles.fromSelected : null} onClick={() => handleToClick('es')}>Español</button>
             <button className={to === 'en' ? styles.fromSelected : null} onClick={() => handleToClick('en')}>Ingles</button>
 
             <select name="to" id="to" className={to !== 'es' && to !== 'en' && to !== '' ? styles.selectSelected : styles.select} value={to} onChange={(e) => setTo(e.target.value)}>
-              <option value="" disabled>Idiomas</option>
+              <option value="" disabled>Idiomas ▼</option>
               {
                 idiomas.map((e) => (
                   <option className={styles.options} key={e.code} value={e.code} disabled={from === e.code}>{e.name}</option>
                 ))
               }
-              <img id={styles.altavoz} width={20} src="../public/triangulo.png" alt="" />
             </select>
+            <img id={styles.altavoz} width={20} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="" />
           </div>
 
-          <textarea disabled name="" id="" cols="30" rows="20" value={result}></textarea>
+          {
+            cargando && result === '' ? <div className={styles.conteiner_iconoCargando}><div id={styles.iconoCargando}></div></div>:<textarea disabled name="" id="" cols="30" rows="20" value={result}></textarea>
+          }
+
+          
+
           <img id={styles.altavoz} width={20} onClick={() => speak(result, to)} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0" />
           <img id={styles.copy} onClick={() => copiarTxt()} width={20} src="https://i.ibb.co/3hX2DRW/icons8-copy-48.png" alt="icons8-copy-48" border="0" />
         </div>

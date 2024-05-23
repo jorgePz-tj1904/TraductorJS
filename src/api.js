@@ -3,7 +3,7 @@ export const options = {
     method: 'GET',
     url: 'https://text-translator2.p.rapidapi.com/getLanguages',
     headers: {
-      'X-RapidAPI-Key': '83c44a46a2msh1df5fd3577e36a2p18b05cjsn12a1521c0f73',
+      'X-RapidAPI-Key': '3621122917msh6e8ba43c8abec4ep1e20c3jsn7cc4f486d948',
       'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
     }
   };
@@ -14,7 +14,7 @@ export const options = {
     url: 'https://text-translator2.p.rapidapi.com/translate',
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      'X-RapidAPI-Key': '83c44a46a2msh1df5fd3577e36a2p18b05cjsn12a1521c0f73',
+      'X-RapidAPI-Key': '3621122917msh6e8ba43c8abec4ep1e20c3jsn7cc4f486d948',
       'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
     },
     data: encodedParams,
@@ -28,7 +28,7 @@ export const options = {
       url: 'https://google-translate113.p.rapidapi.com/api/v1/translator/detect-language',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': 'bedff14049mshec0dc50391d37b3p1394d7jsn1c81efd6f990',
+        'X-RapidAPI-Key': '3621122917msh6e8ba43c8abec4ep1e20c3jsn7cc4f486d948',
         'X-RapidAPI-Host': 'google-translate113.p.rapidapi.com'
       },
       data: encodedParams,
