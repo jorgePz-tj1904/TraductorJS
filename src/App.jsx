@@ -7,8 +7,9 @@ import { options, fnTranslate, autoDetected } from './api.js';
 function App() {
 
   const [frase, setFrase] = useState('');
-  const [to, setTo] = useState('auto');
+  const [to, setTo] = useState('');
   const [result, setResult] = useState('');
+  const [alerta, setAlerta] = useState('');
 
   const [uploadImg, setUploadImg] = useState(false);
   const [grabando, setGrabando] = useState(false);
@@ -35,17 +36,25 @@ function App() {
   }
 
   useEffect(() => {
-    // getIdiomas();
+    getIdiomas();
     // detectIdioma();
     // console.log(frase);
     // console.log('se ejecuta');
   }, []);
 
+  const showAlert=(mensaje, duración)=>{
+    setAlerta(mensaje);
+
+    setTimeout(() => {
+      setAlerta('');
+    }, duración);
+  }
+
 
   const copiarTxt = () => {
     navigator.clipboard.writeText(result)
       .then(() => {
-        alert('Se Copió correctamente');
+        showAlert('se copió correctamente', 3000);
       })
       .catch((err) => {
         console.error('Error al copiar al portapapeles: ', err);
@@ -57,12 +66,12 @@ function App() {
     setResult('');
     setCargando(true);
     if (frase === '') {
-      alert('Ingresa el texto a traducir.');
+      showAlert('Ingresa el texto a traducir.', 3000);
       setCargando(false);
       return;
     }
     if (to === '') {
-      alert('Selecciona el idioma a traducir.');
+      showAlert('Selecciona el idioma a traducir.', 3000);
       setCargando(false);
       return;
     }
@@ -79,7 +88,7 @@ function App() {
 
   const speak = (texto, idioma) => {
     if (texto === '') {
-      return alert('No existe texto a leer.')
+      return showAlert('No existe texto a leer.', 3000)
     }
     const mensaje = new SpeechSynthesisUtterance(texto);
     mensaje.lang = idioma;
@@ -104,7 +113,7 @@ function App() {
       if (recRef.current) {
         recRef.current.stop();
         setGrabando(false);
-        console.log('entra aca, un saludo a la maquina');
+        // console.log('entra aca, un saludo a la maquina');
       }
       return;
     }
@@ -126,7 +135,7 @@ function App() {
     };
 
     if (!("webkitSpeechRecognition" in window)) {
-      alert("Disculpas, tu navegador no admite utilizar el micrófono.");
+      showAlert("Disculpa, tu navegador no admite utilizar el micrófono.", 3000);
     } else {
       rec.continuous = true;
       rec.interim = true;
@@ -171,6 +180,9 @@ function App() {
 
   return (
     <div>
+      <div className={alerta === ''? styles.alertaOff : styles.alerta}>
+        <p>{alerta}</p>
+      </div>
       <div className={styles.icono_conteiner}>
 
         <img src="https://i.ibb.co/3yD0WnB/icono.png" alt="icono" border="0" />
@@ -228,9 +240,9 @@ function App() {
 
           {
             uploadImg ?
-              <img onClick={() => setUploadImg(false)} id={styles.addImg} src="src/iconos/equis.png" alt="icons8-cancel-64" border="0" />
+              <img onClick={() => setUploadImg(false)} id={styles.addImg} src="https://i.ibb.co/R2Xx6h0/icons8-upload-96.png" alt="icons8-cancel-64" border="0" />
               :
-              <img onClick={() => {setUploadImg(true); setFrase('')}} id={styles.addImg} width={40} src="src/iconos/addImg.png" alt="icons8-add-image-48" border="0" />
+              <img onClick={() => {setUploadImg(true); setFrase('')}} id={styles.addImg} width={40} src="https://i.ibb.co/jwMgGLn/icons8-add-image-48.png" alt="icons8-add-image-48" border="0" />
           }
 
           <img id={styles.altavoz} width={20} onClick={() => speak(frase, from)} src="https://i.ibb.co/XSbd1p7/altavoz.png" alt="altavoz" border="0" />

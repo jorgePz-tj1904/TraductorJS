@@ -132,7 +132,7 @@ textarea:focus {
 #traducirBtn {
   text-align: center;
   color: white;
-  border: none;
+  border: 1px solid white;
   border-radius: 5px;
   cursor: pointer;
   position: absolute; /* Posiciona absolutamente dentro del contenedor */
@@ -198,9 +198,12 @@ textarea:focus {
   justify-content: center;
 }
 #estiloUpload:hover{
-  border: 1px solid rgba(25, 19, 84, 0.482);
   cursor: pointer;
+  padding: 10px;
 }
+
+
+
 @keyframes cargando{
   0%{
     transform: rotate(0deg);
@@ -223,6 +226,35 @@ textarea:focus {
   width: 50px;
   height: 50px;
   animation: cargando 1.3s infinite linear;
+}
+
+
+
+.alerta {
+  position: absolute;
+  color: rgb(25, 19, 84);
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  max-height: 100px; /* Ajusta según el contenido */
+  overflow: hidden;  /* Oculta el contenido al reducir la altura */
+  transition: .1s;
+  margin-left: 10px;
+}
+
+.alertaOff {
+  position: absolute;
+  color: black;
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  max-height: 0;    /* Reducir la altura para ocultar el contenido */
+  transition: .1s;
+  margin-top: -50px;
+  width: 150px;
+  margin-left: 10px;
 }
 
 @media (max-width: 890px) {
@@ -250,6 +282,14 @@ textarea:focus {
   .cards_conteiner{
     min-height: 350px;
   }
+  .alerta{
+    margin-left: -50px;
+    padding: 5px;
+    margin-top: 20px;
+  }
+  .alertaOff{
+    margin-left: -50px;
+  }
 }
 @media (max-width: 475px) {
   .select{
@@ -259,6 +299,19 @@ textarea:focus {
   .cards_conteiner{
     margin: 2px;
     min-width: auto;
+  }
+  .alerta{
+    position: fixed;
+    margin-left: -10px;
+    padding: 5px;
+    margin-top: 20px;
+    font-size: 15px;
+    border: 1px solid rgba(25, 19, 84, 0.488);
+    z-index: 10;
+  }
+  .alertaOff{
+    margin-left: -10px;
+    z-index: 10;
   }
 }
 
